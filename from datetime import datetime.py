@@ -3,7 +3,24 @@ import os
 import subprocess
 import json
 import re
+from types import NoneType
 
+os.system("pip install crontab")
+os.system("termux-wake-lock")
+
+daily_limit = int(input("enter your expected daily: "))
+
+ptp = subprocess.Popen(f"which python3",shell = True, stdout = subprocess.PIPE, stderr = subprocess.PIPE)
+pytp,err = ptp.communicate()
+python_path = pytp.decode('utf-8').rstrip("\r\n")
+
+ftp = subprocess.Popen(f"readlink -f portman.py",shell = True, stdout = subprocess.PIPE, stderr = subprocess.PIPE)
+fytp,err = ftp.communicate()
+file_path = fytp.decode('utf-8').rstrip("\r\n")
+
+crn = subprocess.Popen(f"which crontab",shell = True, stdout = subprocess.PIPE, stderr = subprocess.PIPE)
+crntb,err = crn.communicate()
+crontab_path = crntb.decode('utf-8').rstrip("\r\n")
 
 def check_time(init_time):
     time_t = datetime.strptime(init_time, '%Y-%m-%d %H:%M:%S')
@@ -11,11 +28,17 @@ def check_time(init_time):
         return True
     return False
 
+
+#get bulk text_messages from your phone
 def get_msg(record):
     raw_msg = subprocess.Popen(f"termux-sms-list -l {record}",shell = True, stdout = subprocess.PIPE, stderr = subprocess.PIPE)
     out , err = raw_msg.communicate()
     messages = json.loads(out.decode('utf-8'))
     return messages
+
+#'''check if the last 30th message is from yesterday
+# if it's not from yesterday, check for the next 15 and stop checking once the last nth message is from yesterday
+# this is to help ensure we're getting all messages from 12:00am today,which may or may not include messages from yesterday'''
 
 def get_required_messages():
     list = 30
@@ -25,6 +48,9 @@ def get_required_messages():
             return msgs
         list+=15
 
+
+#'''ensure each message from required_messages is from today, if not extract the ones from today
+# this is to remove messages from yesterday. For cases that included messages from the previous day'''
 def get_specific_messages():
     textMsg = get_required_messages()
     for each_msg in textMsg:
@@ -32,15 +58,21 @@ def get_specific_messages():
         if time_received.date() == datetime.today().date():
             return textMsg[textMsg.index(each_msg):]
 
+#check for messages that are from banks(i.e alerts)
 def access_alerts():
     banks = "UNIONBANK UBA ZENITHBANK ".lower().split()
+#    print(banks)
     alerts = []
     day_messages = get_specific_messages()
-    for i in day_messages:
-        if i["number"].lower() in banks:
-            alerts.append(i)    
-    return alerts   
+    if type(day_messages) == NoneType :
+        return "you have no alerts alerts for the day"
+    else:
+        for i in day_messages:
+            if i["number"].lower() in banks:
+                alerts.append(i)    
+        return alerts   
 
+#'''check if alert is credit or debit
 def check_alerts():
     alerts = access_alerts()
     cred = []
@@ -63,35 +95,54 @@ def check_alerts():
             for i in debit:
                 debit_amount = extract_figs.finditer(i.group())
                 for i in debit_amount:
-                    # b = float(i.group().replace(",",""))
                     b = float(i.group().replace(",",""))
                     deb.append(b)
     total_credit = sum(cred)
     total_debit = sum(deb)
-    print("your total amount received today is :",sum(cred))
-    print("your total amount spent so far today is :",sum(deb))
+    os.system(f"termux-toast -b green -c blue -g top -s your total amount received today is : \#{total_credit}")
+    os.system(f"termux-toast -b green -c blue -g top -s your total amount spent so far today is : \#{total_debit}")
     return total_credit,total_debit
+
+
+
+
 
 def notif():
     ea = check_alerts()
     credit = ea[0]
     debit = ea[1]
-    percent = debit/credit * 100
-    print(f"your percentage expenditure is {percent}%" )
-    if percent < 20:
-        return print(f"your percentage expenditure is {percent}%")
-    elif percent <=50:
-        os.system("termux-toast -b teal -c green -g top -s warning: you have spent at almost 50% of your daily income so far")
-        return print(f"your percentage expenditure is {percent}%\n\n warning: you have spent at almost 50% of your daily income so far")
-    elif percent <= 70:
-        os.system("termux-toast -b teal -c green -g top -s warning: you have spent at almost 50% of your daily income so far")
-        #return print(f"your percentage expenditure is {percent}% oi watch it, you have spent almost 70% of your daily income so far")
-    elif percent <= 100: 
-        os.system("termux-toast -b teal -c green -g top -s warning: you have spent at almost 50% of your daily income so far")
-        #return print(f"your percentage expenditure is {percent}% are you nuts!, you have spent almost all of your daily income so far")
-    elif percent >100 :
-        excess = percent-100
-        notif_message 
-        os.system("termux-toast -b teal -c green -g top -s warning: you have spent at almost 50% of your daily income so far")
-        
-        #return print(
+    while datetime.today().date():
+        limit = daily_limit
+        break
+    if debit == 0:
+       notification = os.system("termux-toast -b red -c cyan -g top you have zero expenditures as of today")
+    else:
+        dl_percent = debit / limit * 100
+        if dl_percent >= 10:
+            notification = os.system("termux-toast -b teal -c red -g top  warning: you have spent at least 10% of your daily expenditure limit")
+        elif dl_percent >= 20:
+            notification = os.system("termux-toast -b teal -c red -g top  warning: you have spent at least 20% of your daily expenditure limit")
+        elif dl_percent >= 30:
+            notification = os.system("termux-toast -b teal -c red -g top -s warning: you have spent at least 30% of your daily expenditure limit")
+        elif dl_percent >= 50:
+            notification = os.system("termux-toast -b teal -c red -g top -s warning: you have spent at least 50% of your daily expenditure limit")
+        elif dl_percent >= 75:
+            notification = os.system("termux-toast -b teal -c red -g top -s warning: you have spent at least 75% of your daily expenditure limit")
+        elif dl_percent == 100:
+            notification = os.system("termux-toast -b teal -c red -g top -s warning: you have spent at least 100% of your daily expenditure limit")
+        elif dl_percent > 100:
+            notification = os.system(f"termux-toast -b teal -c red -g top -s warning: you have spent {round((dl_percent - 100),2)}% more than your daily expenditure limit /n which is {debit - limit}% more than {limit}")
+        notification = os.system(f"termux-toast -b teal -c green -g top -s you have spent {round(dl_percent,2)}% of your daily limit \n")
+    
+    if debit > credit:
+        notification = os.system(f"termux-toast -b teal -c red -s -g top you have spent \#{debit - credit} more than your daily income")
+    if debit < limit:
+        notification = os.system(f"termux-toast -b teal -c brown -g top -s you have \#{limit - debit} left of your daily expenditure for the day")
+    return notification
+
+notif()
+
+def cron():
+    f = open("crontab_path","a")
+    f.write(f"*/30 * * * * {python_path} {file_path}" )
+    f.close()
