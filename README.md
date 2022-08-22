@@ -3,15 +3,15 @@
 An app that helps users keep track of their expenses
 
 ## Description
-The tracker checks your inbox(sms) for alerts and compiles your credits and debits. Since it runs periodically, you get to set how often you want to be notified of your 
-expenses. 
+The tracker checks your inbox(sms) for alerts and compiles your credits and debits. Since it runs periodically, you get to set how often you want to be notified of your expenses. 
+* works for 3 Nigerian banks for now (United Bank for Africa, Zenith Bank, Union Bank plc)
 
 
 ## Getting Started
 
 ### Dependencies
-* First you need to get termux from [fdroid](https://f-droid.org/en/packages/com.termux/) . If you don't have fdroid installed you can download [here] ((https://f-droid.org/))
-* Also install the Termux-API [here] (https://f-droid.org/en/packages/com.termux.api/)
+* First you need to get termux from [fdroid](https://f-droid.org/en/packages/com.termux/) . If you don't have fdroid installed you can download [here](https://f-droid.org/)
+* Also install the Termux-API [here](https://f-droid.org/en/packages/com.termux.api/)
 *PS: Do not download from playstore.
 
 * Open the installed termux app and type in "pkg install python3" on the page that looks like the command prompt on windows
