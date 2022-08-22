@@ -25,13 +25,11 @@ The tracker checks your inbox(sms) for alerts and compiles your credits and debi
 
 ### Executing program
 
-* How to run the program
-* Step-by-step bullets
-```
-* Open termux and type in "realpath portmanf.py" to get the directory the file was downloaded to
+* Open termux and type in "realpath portman.py" to get the directory the file was downloaded to
 
 * copy the path and run "python3 /the_path_you_copied/"
-
+```
+"realpath portman.py"
 ```
 
 ## Help
