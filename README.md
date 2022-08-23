@@ -34,15 +34,13 @@ The tracker checks your inbox(sms) for alerts and compiles your credits and debi
 
 ## Help
 
-You are the first set of people to use this , kindly drop reports of bugs or improvements to be made and i'll make adjustments
-```
+You are the first set of people to use this , kindly drop reports of bugs or improvements to be made and i'll make adjustment
+
 
 ## Authors
 
-
-
-ex. Ezekiel Olumide 
-ex. [@_d_aslan](https://twitter.com/_d_aslan)
+Ezekiel Olumide 
+[@_d_aslan](https://twitter.com/_d_aslan)
 
 ## Version History
 
