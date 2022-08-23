@@ -145,10 +145,12 @@ def notif():
              At least 75% of daily limit spent""")
             not2 = os.system(f"""ls $PREFIX| termux-notification -c 'WARNING: 
       You have spent At least 75% of Your daily expenditure limit'""")
-        elif dl_percent == 100:
+      
+       elif dl_percent == 100:
             notification = os.system("""""ls $PREFIX| termux-toast -b teal -c green -g top -s 'WARNING: 
             At least 100% of daily expenditure limit spent' """)
             not2 = os.system(f"""ls $PREFIX| termux-notification -c 'You have spent At least 100% of Your daily expenditure limit'""")
+        
         elif dl_percent > 100:
             notification = os.system(f"""ls $PREFIX| termux-toast -b teal -c green -g top -s 'WARNING:
       You have spent {round((dl_percent - 100),2)}% which is \#{debit - limit} more than Your daily limit  """)
@@ -159,7 +161,7 @@ def notif():
 
         notification = os.system(f"""ls $PREFIX| termux-toast -b teal -c red -g top -s 'WARNING:
       You have spent \#{debit - credit} more than Your daily income' """)
-        not2 = os.system(f"""ls $PREFIX| termux-nptification -c 'WARNING:
+        not2 = os.system(f"""ls $PREFIX| termux-notification -c 'WARNING:
       You have spent \#{debit - credit} more than Your daily income' """)
 
 
