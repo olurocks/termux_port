@@ -19,7 +19,7 @@ The tracker checks your inbox(sms) for alerts and compiles your credits and debi
 
 ### Installing
 
-* Download the portman.py app from my github [link](https://github.com/olurocks/termux_port/blob/main/portmanf.py)
+* Download the portman.py app from my github [link](https://github.com/olurocks/termux_port/archive/refs/heads/main.zip)
 
 
 
