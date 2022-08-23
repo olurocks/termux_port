@@ -95,16 +95,15 @@ def check_alerts():
     total_credit = round(sum(cred),2)
     total_debit = round(sum(deb),2)
 
-    os.system(f"""ls $PREFIX| termux-toast -b green -c blue -g top -s 'Daily Income :
-     \#{total_credit}' """)
+    os.system(f"""ls $PREFIX| termux-toast -b green -c blue -g top -s 'Daily Income : #{total_credit}
+     
+     Daily Expenditure : #{total_debit}' ' """)
 
-    os.system(f"""ls $PREFIX| termux-notification -c 'Daily income: #{total_credit}' """)
-
-    os.system(f"""ls $PREFIX| termux-toast -b green -c red -g top -s 'Daily Expenditure :
-     \#{total_debit}' """)
-
-    os.system(f"""ls $PREFIX| termux-notification -c 'Daily Expenditure : 
+    os.system(f"""ls $PREFIX| termux-notification -c 'Daily income: #{total_credit}
+    Daily Expenditure : 
     #{total_debit}' """)
+
+
 
     return total_credit,total_debit
 
@@ -153,23 +152,23 @@ def notif():
         
         elif dl_percent > 100:
             notification = os.system(f"""ls $PREFIX| termux-toast -b teal -c green -g top -s 'WARNING:
-      You have spent {round((dl_percent - 100),2)}% which is \#{debit - limit} more than Your daily limit  """)
+      You have spent {round((dl_percent - 100),2)}% which is #{debit - limit} more than Your daily limit  """)
         notification = os.system(f"""ls $PREFIX| termux-toast -b teal -c green -g top -s 'WARNING:
       You have spent {round(dl_percent,2)}% of Your daily limit' """)
     
     if debit > credit:
 
         notification = os.system(f"""ls $PREFIX| termux-toast -b teal -c red -g top -s 'WARNING:
-      You have spent \#{debit - credit} more than Your daily income' """)
+      You have spent #{debit - credit} more than Your daily income' """)
         not2 = os.system(f"""ls $PREFIX| termux-notification -c 'WARNING:
-      You have spent \#{debit - credit} more than Your daily income' """)
+      You have spent #{debit - credit} more than Your daily income' """)
 
 
     if debit < limit:
         notification = os.system(f"""ls $PREFIX | termux-toast -b teal -c brown -g top -s 'CAUTION:
-      You have \#{limit - debit} left of Your daily expenditure for the day' """)
+      You have #{limit - debit} left of Your daily expenditure for the day' """)
         not2 = os.system(f"""ls $PREFIX | termux-notification -c 'CAUTION:
-      You have \#{limit - debit} left of Your daily expenditure for the day' """)
+      You have #{limit - debit} left of Your daily expenditure for the day' """)
 
     return notification, not2
 
