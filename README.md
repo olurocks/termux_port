@@ -21,11 +21,13 @@ The tracker checks your inbox(sms) for alerts and compiles your credits and debi
 
 * Download the portman.py app from my github [link](https://github.com/olurocks/termux_port/archive/refs/heads/main.zip)
 
+and extract portman.py from the zip file
+
 
 
 ### Executing program
 
-* Open termux and type in "realpath portman.py" to get the directory the file was downloaded to
+* Open termux and type in "realpath portman.py" to get the directory the file was downloaded to. (If this doesn't give you the correct path, kindly manually copy the directory from your file manager)
 
 * copy the path and run "python3 /the_path_you_copied/"
 ```
@@ -35,6 +37,7 @@ The tracker checks your inbox(sms) for alerts and compiles your credits and debi
 ## Help
 
 You are the first set of people to use this , kindly drop reports of bugs or improvements to be made and i'll make adjustment
+
 
 
 ## Authors
