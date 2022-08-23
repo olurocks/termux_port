@@ -173,6 +173,7 @@ def notif():
 
     return notification, not2
 
+notif()
 #schedule to run periodically
 scheduler = BlockingScheduler()
 scheduler.add_job(notif, 'interval', minutes = time)
