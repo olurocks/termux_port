@@ -6,7 +6,6 @@ import re
 from types import NoneType
 from apscheduler.schedulers.blocking import BlockingScheduler
 
-os.system("")
 os.system("termux-wake-lock")
 
 daily_limit = int(input("enter Your estimate daily limit : "))
@@ -45,6 +44,7 @@ def get_required_messages():
 
 # ensure each message from required_messages is from today, if not extract the ones from today
 # this is to remove messages from yesterday. For cases that included messages from the previous day
+
 def get_specific_messages():
     textMsg = get_required_messages()
     for each_msg in textMsg:
@@ -109,7 +109,6 @@ def check_alerts():
 
 
 #send notifications
-
 def notif():
     ea = check_alerts()
     credit = ea[0]
@@ -124,7 +123,9 @@ def notif():
     else:
         dl_percent = debit / limit * 100
         if dl_percent <= 10:
+            #termux toast makes a pop up on device screen
             notification = os.system("""ls $PREFIX| termux-toast -b teal -c green -g top At least 10% of daily limit spent""")
+            #termux notification keeps the notification
             not2 = os.system(f"""ls $PREFIX| termux-notification -c 'You have spent At least 10% of Your daily expenditure limit'""")
 
         elif dl_percent <= 20:
@@ -143,7 +144,7 @@ def notif():
             notification = os.system("""ls $PREFIX| termux-toast -b teal -c green -g top -s 'WARNING:
              At least 75% of daily limit spent""")
             not2 = os.system(f"""ls $PREFIX| termux-notification -c 'WARNING: 
-      You have spent At least 75% of Your daily expenditure limit'""")
+        You have spent At least 75% of Your daily expenditure limit'""")
       
         elif dl_percent == 100:
             notification = os.system("""""ls $PREFIX| termux-toast -b teal -c green -g top -s 'WARNING: 
@@ -152,23 +153,23 @@ def notif():
         
         elif dl_percent > 100:
             notification = os.system(f"""ls $PREFIX| termux-toast -b teal -c green -g top -s 'WARNING:
-      You have spent {round((dl_percent - 100),2)}% which is #{debit - limit} more than Your daily limit  """)
+        You have spent {round((dl_percent - 100),2)}% which is #{debit - limit} more than Your daily limit  """)
         notification = os.system(f"""ls $PREFIX| termux-toast -b teal -c green -g top -s 'WARNING:
-      You have spent {round(dl_percent,2)}% of Your daily limit' """)
+        You have spent {round(dl_percent,2)}% of Your daily limit' """)
     
     if debit > credit:
 
         notification = os.system(f"""ls $PREFIX| termux-toast -b teal -c red -g top -s 'WARNING:
-      You have spent #{debit - credit} more than Your daily income' """)
+        You have spent #{debit - credit} more than Your daily income' """)
         not2 = os.system(f"""ls $PREFIX| termux-notification -c 'WARNING:
-      You have spent #{debit - credit} more than Your daily income' """)
+        You have spent #{debit - credit} more than Your daily income' """)
 
 
     if debit < limit:
         notification = os.system(f"""ls $PREFIX | termux-toast -b teal -c brown -g top -s 'CAUTION:
-      You have #{limit - debit} left of Your daily expenditure for the day' """)
+        You have #{limit - debit} left of Your daily expenditure for the day' """)
         not2 = os.system(f"""ls $PREFIX | termux-notification -c 'CAUTION:
-      You have #{limit - debit} left of Your daily expenditure for the day' """)
+        You have #{limit - debit} left of Your daily expenditure for the day' """)
 
     return notification, not2
 
