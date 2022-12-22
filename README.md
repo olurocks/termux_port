@@ -3,7 +3,11 @@
 An app that helps users keep track of their expenses
 
 ## Description
-The tracker checks your inbox(sms) for alerts and compiles your credits and debits. Since it runs periodically, you get to set how often you want to be notified of your expenses. 
+This project involves creating a Python script that allows users to track their daily expenses by receiving alerts for bank transactions. The script will use the termux-sms-list command to retrieve SMS messages from the user's phone, and will filter the messages to include only those that are from banks. It will then classify the transactions as either credits or debits, and will keep track of the total amount of credits and debits.
+
+If the total amount exceeds the user's daily limit, the script will send an alert via the termux-tts-speak command. The script will be designed to run continuously, with a blocking scheduler setting the frequency at which the script checks for new messages and sends alerts. It will also include error handling to prevent the script from crashing if there are no SMS messages or if there are issues with the regular expressions.
+
+This project will require familiarity with command line tools, SMS messaging, regular expressions, error handling, and scheduling in Python. The resulting script will provide a useful and practical tool for tracking daily expenses and staying within a budget.
 * works for 3 Nigerian banks for now (United Bank for Africa, Zenith Bank, Union Bank plc)
 
 
