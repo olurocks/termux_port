@@ -3,12 +3,20 @@
 An app that helps users keep track of their expenses
 
 ## Description
-A Python script that allows users to track their daily expenses by receiving alerts for bank transactions. The script will use the termux-sms-list command to retrieve SMS messages from the user's phone, and will filter the messages to include only those that are from banks. It will then classify the transactions as either credits or debits, and will keep track of the total amount of credits and debits.
+The Expense Tracker with Bank Transaction Alerts is a Python script designed to help users track their daily expenses by receiving alerts for bank transactions. The script utilizes the termux-sms-list command to retrieve SMS messages from the user's phone and filters them to include only messages from three Nigerian banks: United Bank for Africa, Zenith Bank, and Union Bank plc.
 
-If the total amount exceeds the user's daily limit, the script will send an alert via the termux-tts-speak command. The script will be designed to run continuously, with a blocking scheduler setting the frequency at which the script checks for new messages and sends alerts. It will also include error handling to prevent the script from crashing if there are no SMS messages or if there are issues with the regular expressions.
+###Key Features:
+1. SMS Message Filtering: The script uses regular expressions to identify bank transaction messages, ensuring that only relevant messages are processed.
 
-This project will require familiarity with command line tools, SMS messaging, regular expressions, error handling, and scheduling in Python. The resulting script will provide a useful and practical tool for tracking daily expenses and staying within a budget.
-* works for 3 Nigerian banks for now (United Bank for Africa, Zenith Bank, Union Bank plc)
+2. Classification of Transactions: It accurately classifies transactions as either credits or debits, providing a clear overview of the user's financial activity.
+
+3. Daily Expense Limit: Users can set a daily expense limit, and the script will keep track of the total amount of credits and debits. If the total amount exceeds the set limit, an alert is sent via the termux-tts-speak command.
+
+4. Continuous Operation: The script is designed to run continuously, with a blocking scheduler controlling the frequency at which it checks for new messages and sends alerts.
+
+5. Error Handling: The script includes robust error handling to prevent crashes in scenarios where no SMS messages are available or when issues with regular expressions occur.
+
+This project requires a strong understanding of command line tools, SMS messaging, regular expressions, error handling, and scheduling in Python. Once completed, the script will serve as a practical and useful tool for individuals looking to track their expenses and manage their budgets effectively.
 
 
 ## Getting Started
