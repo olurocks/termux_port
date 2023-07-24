@@ -5,7 +5,7 @@ An app that helps users keep track of their expenses
 ## Description
 The Expense Tracker with Bank Transaction Alerts is a Python script designed to help users track their daily expenses by receiving alerts for bank transactions. The script utilizes the termux-sms-list command to retrieve SMS messages from the user's phone and filters them to include only messages from three Nigerian banks: United Bank for Africa, Zenith Bank, and Union Bank plc.
 
-###Key Features:
+### Key Features:
 1. SMS Message Filtering: The script uses regular expressions to identify bank transaction messages, ensuring that only relevant messages are processed.
 
 2. Classification of Transactions: It accurately classifies transactions as either credits or debits, providing a clear overview of the user's financial activity.
